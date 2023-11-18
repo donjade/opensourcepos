@@ -1,7 +1,7 @@
 <?php $this->load->view("partial/header"); ?>
 
 <div id="sale_register">
-	<div>
+	<div class="alert-messages">
 	<?php
 	if(isset($error))
 	{
@@ -107,7 +107,7 @@
 				<?php echo form_input(array('name'=>'item', 'class'=>'form-control input-sm hidden', 'tabindex'=>++$tabindex)); ?>
 				<!-- Items grid -->
 				<div id="table_holder">
-					<table id="table" class="items-grid-table"></table>
+					<table id="table" class="items-grid-table grid-table"></table>
 				</div>
 			<?php echo form_close(); ?>
 		</div>

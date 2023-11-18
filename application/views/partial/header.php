@@ -75,7 +75,7 @@
 		<![endif]-->
 		<!-- start mincss template tags -->
 		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
-		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=ec26aa9f58"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=6b648d5fb8"/>
 		<!-- end mincss template tags -->
 
 		<!-- Tweaks to the UI for a particular theme should drop here  -->

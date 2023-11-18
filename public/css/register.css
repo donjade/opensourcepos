@@ -151,3 +151,11 @@ input#amount_tendered:disabled
 {
 	margin-bottom: 5px;
 }
+
+.grid-table tr th:first-child,
+.grid-table tr td:first-child,
+.grid-table tr th:last-child,
+.grid-table tr td:last-child
+{
+	display: none;
+}
