@@ -459,6 +459,7 @@ function get_items_sales_manage_table_headers()
 
 	$headers = array(
 		array('items.item_id' => $CI->lang->line('common_id')),
+		array('item_pic' => $CI->lang->line('items_image'), 'sortable' => FALSE),
 		array('item_number' => $CI->lang->line('items_item_number')),
 		array('name' => $CI->lang->line('items_name')),
 		array('category' => $CI->lang->line('items_category')),
@@ -475,8 +476,6 @@ function get_items_sales_manage_table_headers()
 		$headers[] = array('tax_percents' => $CI->lang->line('items_tax_percents'), 'sortable' => FALSE);
 
 	}
-
-	$headers[] = array('item_pic' => $CI->lang->line('items_image'), 'sortable' => FALSE);
 
 	foreach($definition_names as $definition_id => $definition_name)
 	{
@@ -537,7 +536,7 @@ function get_item_sales_data_row($item)
 
 		if(sizeof($images) > 0)
 		{
-			$image .= '<a class="rollover" href="'. base_url($images[0]) .'"><img src="'.site_url('items/pic_thumb/' . pathinfo($images[0], PATHINFO_BASENAME)) . '"></a>';
+			$image .= '<a class="rollover" href="'. base_url($images[0]) .'"><img src="'.site_url('/uploads/item_pics/' . pathinfo($images[0], PATHINFO_BASENAME)) . '"></a>';
 		}
 	}
 
@@ -559,13 +558,7 @@ function get_item_sales_data_row($item)
 		'tax_percents' => !$tax_percents ? '-' : $tax_percents,
 	);
 
-	$icons = array(
-		'edit' => anchor($controller_name."/view/$item->item_id", '<span class="glyphicon glyphicon-edit"></span>',
-			array('class' => 'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title' => $CI->lang->line($controller_name.'_update'))
-		)
-	);
-
-	return $columns + expand_attribute_values($definition_names, (array) $item) + $icons;
+	return $columns + expand_attribute_values($definition_names, (array) $item);
 }
 
 

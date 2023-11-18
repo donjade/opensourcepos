@@ -112,7 +112,7 @@ class Sales extends Secure_Controller
 		echo json_encode($suggestions);
 	}
 
-/*
+	/*
 	 * Returns Items table data rows. This will be called with AJAX.
 	 */
 	public function grid_search()

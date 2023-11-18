@@ -102,11 +102,14 @@
 			</div>
 		<?php echo form_close(); ?>
 
-		<div style="background: lightyellow;">
-			<!-- Items grid -->
-			<div id="table_holder">
-				<table id="table"></table>
-			</div>
+		<div>
+			<?php echo form_open($controller_name."/add", array('id'=>'add_item_table_form', 'class'=>'form-horizontal panel panel-default')); ?>
+				<?php echo form_input(array('name'=>'item', 'class'=>'form-control input-sm hidden', 'tabindex'=>++$tabindex)); ?>
+				<!-- Items grid -->
+				<div id="table_holder">
+					<table id="table" class="items-grid-table"></table>
+				</div>
+			<?php echo form_close(); ?>
 		</div>
 	</div>
 
@@ -751,14 +754,16 @@ $(document).ready(function()
 		delay: 500,
 		select: function (a, ui) {
 			$(this).val(ui.item.value);
-			$('#add_item_form').submit();
+			$('#add_item_form').ajaxSubmit();
+			location.reload();
 			return false;
 		}
 	});
 
 	$('#item').keypress(function (e) {
 		if(e.which == 13) {
-			$('#add_item_form').submit();
+			$('#add_item_form').ajaxSubmit();
+			location.reload();
 			return false;
 		}
 	});
@@ -938,6 +943,7 @@ $(document).ready(function()
         headers: <?php echo $table_headers; ?>,
         pageSize: <?php echo $this->config->item('lines_per_page'); ?>,
         uniqueId: 'items.item_id',
+		showExport: false,
         queryParams: function() {
             return $.extend(arguments[0], {
                 filters: $("#filters").val() || [""]
@@ -948,7 +954,12 @@ $(document).ready(function()
 				imgCSS: { width: 200 },
 				distanceFromCursor: { top:10, left:-210 }
 			})
-        }
+        },
+		onItemCheck: function (event) {
+			$('#add_item_table_form input').val(event['items.item_id']);
+			$('#add_item_table_form').ajaxSubmit();
+			location.reload();
+		}
     });
 });
 

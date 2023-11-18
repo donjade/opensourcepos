@@ -223,8 +223,8 @@
 			pagination: true,
 			search: options.resource || false,
 			showColumns: true,
-			clickToSelect: true,
-			showExport: true,
+			clickToSelect: options.clickToSelect ?? true,
+			showExport: options.showExport ?? true,
 			exportDataType: 'basic',
 			exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel', 'pdf'],
 			exportOptions: {
@@ -237,7 +237,11 @@
 			toolbar: '#toolbar',
 			uniqueId: options.uniqueId || 'id',
 			trimOnSearch: false,
-			onCheck: enable_actions,
+			onCheck: function (event) {
+				typeof options.onItemCheck == 'function' && options.onItemCheck(event);
+
+				enable_actions();
+			},
 			onUncheck: enable_actions,
 			onCheckAll: enable_actions,
 			onUncheckAll: enable_actions,

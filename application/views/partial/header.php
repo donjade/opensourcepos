@@ -84,7 +84,7 @@
 	<?php } ?>
 
 		<!-- start minjs template tags -->
-		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=366552c89f"></script>
+		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=b9d0344bb7"></script>
 		<!-- end minjs template tags -->
 	<?php endif; ?>
 
