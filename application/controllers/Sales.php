@@ -9,6 +9,7 @@ class Sales extends Secure_Controller
 		parent::__construct('sales');
 
 		$this->load->helper('file');
+		$this->load->library('item_lib');
 		$this->load->library('sale_lib');
 		$this->load->library('email_lib');
 		$this->load->library('token_lib');
@@ -109,6 +110,54 @@ class Sales extends Secure_Controller
 		$suggestions = $this->xss_clean($suggestions);
 
 		echo json_encode($suggestions);
+	}
+
+/*
+	 * Returns Items table data rows. This will be called with AJAX.
+	 */
+	public function grid_search()
+	{
+		$search = $this->input->get('search');
+		$limit = $this->input->get('limit');
+		$offset = $this->input->get('offset');
+		$sort = $this->input->get('sort');
+		$order = $this->input->get('order');
+
+		$this->item_lib->set_item_location($this->input->get('stock_location'));
+
+		$definition_names = $this->Attribute->get_definitions_by_flags(Attribute::SHOW_IN_ITEMS);
+
+		$filters = array(
+			'start_date' => date('Y-m-d', mktime(0,0,0,01,01,2010)),
+			'end_date' => date('Y-m-d', mktime(0,0,0,01,01,9999)),
+			'stock_location_id' => $this->item_lib->get_item_location(),
+			'empty_upc' => FALSE,
+			'low_inventory' => FALSE,
+			'is_serialized' => FALSE,
+			'no_description' => FALSE,
+			'search_custom' => FALSE,
+			'is_deleted' => FALSE,
+			'temporary' => FALSE,
+			'definition_ids' => array_keys($definition_names));
+
+		//Check if any filter is set in the multiselect dropdown
+		$filledup = array_fill_keys($this->input->get('filters'), TRUE);
+		$filters = array_merge($filters, $filledup);
+		$items = $this->Item->search($search, $filters, $limit, $offset, $sort, $order);
+		$total_rows = $this->Item->get_found_rows($search, $filters);
+		$data_rows = [];
+
+		foreach($items->result() as $item)
+		{
+			$data_rows[] = $this->xss_clean(get_item_sales_data_row($item));
+
+			if($item->pic_filename !== NULL)
+			{
+				$this->update_pic_filename($item);
+			}
+		}
+
+		echo json_encode(array('total' => $total_rows, 'rows' => $data_rows));
 	}
 
 	public function suggest_search()
@@ -1148,6 +1197,8 @@ class Sales extends Secure_Controller
 			$data['customer_required'] = $this->lang->line('sales_customer_optional');
 		}
 
+		$data['table_headers'] = $this->xss_clean(get_items_sales_manage_table_headers());
+
 		$data = $this->xss_clean($data);
 
 		$this->load->view("sales/register", $data);
@@ -1569,6 +1620,32 @@ class Sales extends Secure_Controller
 		}
 
 		return NULL;
+	}
+
+	/**
+	 * Guess whether file extension is not in the table field, if it isn't, then it's an old-format (formerly pic_id) field, so we guess the right filename and update the table
+	 *
+	 * @param $item int item to update
+	 */
+	private function update_pic_filename($item)
+	{
+		$filename = pathinfo($item->pic_filename, PATHINFO_FILENAME);
+
+		// if the field is empty there's nothing to check
+		if(!empty($filename))
+		{
+			$ext = pathinfo($item->pic_filename, PATHINFO_EXTENSION);
+			if(empty($ext))
+			{
+				$images = glob("./uploads/item_pics/$item->pic_filename.*");
+				if(sizeof($images) > 0)
+				{
+					$new_pic_filename = pathinfo($images[0], PATHINFO_BASENAME);
+					$item_data = array('pic_filename' => $new_pic_filename);
+					$this->Item->save($item_data, $item->item_id);
+				}
+			}
+		}
 	}
 }
 ?>

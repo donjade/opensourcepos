@@ -216,7 +216,7 @@
 			stickyHeader: true,
 			stickyHeaderOffsetLeft: $('#table').offset().right + 'px',
 			stickyHeaderOffsetRight: $('#table').offset().right + 'px',
-			url: options.resource + '/search',
+			url: options.resource + (options.action ?? '/search'),
 			sidePagination: 'server',
 			selectItemName: 'btSelectItem',
 			pageSize: options.pageSize,

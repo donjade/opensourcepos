@@ -448,6 +448,126 @@ function get_item_data_row($item)
 
 }
 
+/*
+Get the header for the items in sales tabular view
+*/
+function get_items_sales_manage_table_headers()
+{
+	$CI =& get_instance();
+
+	$definition_names = $CI->Attribute->get_definitions_by_flags(Attribute::SHOW_IN_ITEMS);
+
+	$headers = array(
+		array('items.item_id' => $CI->lang->line('common_id')),
+		array('item_number' => $CI->lang->line('items_item_number')),
+		array('name' => $CI->lang->line('items_name')),
+		array('category' => $CI->lang->line('items_category')),
+		array('cost_price' => $CI->lang->line('items_cost_price')),
+		array('quantity' => $CI->lang->line('items_quantity'))
+	);
+
+	if($CI->config->item('use_destination_based_tax') == '1')
+	{
+		$headers[] = array('tax_percents' => $CI->lang->line('items_tax_category'), 'sortable' => FALSE);
+	}
+	else
+	{
+		$headers[] = array('tax_percents' => $CI->lang->line('items_tax_percents'), 'sortable' => FALSE);
+
+	}
+
+	$headers[] = array('item_pic' => $CI->lang->line('items_image'), 'sortable' => FALSE);
+
+	foreach($definition_names as $definition_id => $definition_name)
+	{
+		$headers[] = array($definition_id => $definition_name, 'sortable' => FALSE);
+	}
+
+	return transform_headers($headers);
+}
+
+/*
+Get the html data row for the item in sales
+*/
+function get_item_sales_data_row($item)
+{
+	$CI =& get_instance();
+
+	if($CI->config->item('use_destination_based_tax') == '1')
+	{
+		if($item->tax_category_id == NULL)
+		{
+			$tax_percents = '-';
+		}
+		else
+		{
+			$tax_category_info = $CI->Tax_category->get_info($item->tax_category_id);
+			$tax_percents = $tax_category_info->tax_category;
+		}
+	}
+	else
+	{
+		$item_tax_info = $CI->Item_taxes->get_info($item->item_id);
+		$tax_percents = '';
+		foreach($item_tax_info as $tax_info)
+		{
+			$tax_percents .= to_tax_decimals($tax_info['percent']) . '%, ';
+		}
+		// remove ', ' from last item
+		$tax_percents = substr($tax_percents, 0, -2);
+		$tax_percents = !$tax_percents ? '-' : $tax_percents;
+	}
+
+	$controller_name = strtolower(get_class($CI));
+
+	$image = NULL;
+	if($item->pic_filename != '')
+	{
+		$ext = pathinfo($item->pic_filename, PATHINFO_EXTENSION);
+		if($ext == '')
+		{
+			// legacy
+			$images = glob('./uploads/item_pics/' . $item->pic_filename . '.*');
+		}
+		else
+		{
+			// preferred
+			$images = glob('./uploads/item_pics/' . $item->pic_filename);
+		}
+
+		if(sizeof($images) > 0)
+		{
+			$image .= '<a class="rollover" href="'. base_url($images[0]) .'"><img src="'.site_url('items/pic_thumb/' . pathinfo($images[0], PATHINFO_BASENAME)) . '"></a>';
+		}
+	}
+
+	if($CI->config->item('multi_pack_enabled') == '1')
+	{
+		$item->name .= NAME_SEPARATOR . $item->pack_name;
+	}
+
+	$definition_names = $CI->Attribute->get_definitions_by_flags(Attribute::SHOW_IN_ITEMS);
+
+	$columns = array (
+		'items.item_id' => $item->item_id,
+		'item_pic' => $image,
+		'item_number' => $item->item_number,
+		'name' => $item->name,
+		'category' => $item->category,
+		'cost_price' => to_currency($item->cost_price),
+		'quantity' => to_quantity_decimals($item->quantity),
+		'tax_percents' => !$tax_percents ? '-' : $tax_percents,
+	);
+
+	$icons = array(
+		'edit' => anchor($controller_name."/view/$item->item_id", '<span class="glyphicon glyphicon-edit"></span>',
+			array('class' => 'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title' => $CI->lang->line($controller_name.'_update'))
+		)
+	);
+
+	return $columns + expand_attribute_values($definition_names, (array) $item) + $icons;
+}
+
 
 /*
 Get the header for the giftcard tabular view
