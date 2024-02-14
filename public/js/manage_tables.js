@@ -237,11 +237,10 @@
 			toolbar: '#toolbar',
 			uniqueId: options.uniqueId || 'id',
 			trimOnSearch: false,
-			onCheck: function (event) {
-				typeof options.onItemCheck == 'function' && options.onItemCheck(event);
-
-				enable_actions();
+			onClickRow: function (row) {
+				typeof options.onItemCheck == 'function' && options.onItemCheck(row);
 			},
+			onCheck: enable_actions,
 			onUncheck: enable_actions,
 			onCheckAll: enable_actions,
 			onUncheckAll: enable_actions,

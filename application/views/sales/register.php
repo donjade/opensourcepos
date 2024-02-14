@@ -1,4 +1,4 @@
-<?php $this->load->view("partial/header"); ?>
+<?php $this->load->view("partial/header", ['containerClass' => 'container-fluid']); ?>
 
 <div id="sale_register">
 	<div class="alert-messages">
@@ -955,10 +955,11 @@ $(document).ready(function()
 				distanceFromCursor: { top:10, left:-210 }
 			})
         },
-		onItemCheck: function (event) {
-			$('#add_item_table_form input').val(event['items.item_id']);
-			$('#add_item_table_form').ajaxSubmit();
-			location.reload();
+		onItemCheck: function (data) {
+			$('#add_item_table_form input').val(data['items.item_id']);
+			$('#add_item_table_form').ajaxSubmit({
+				success: redirect
+			});
 		}
     });
 });

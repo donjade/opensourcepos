@@ -75,7 +75,7 @@
 		<![endif]-->
 		<!-- start mincss template tags -->
 		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
-		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=6b648d5fb8"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=9ad91941c7"/>
 		<!-- end mincss template tags -->
 
 		<!-- Tweaks to the UI for a particular theme should drop here  -->
@@ -84,7 +84,7 @@
 	<?php } ?>
 
 		<!-- start minjs template tags -->
-		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=b9d0344bb7"></script>
+		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=4556b41565"></script>
 		<!-- end minjs template tags -->
 	<?php endif; ?>
 
@@ -146,5 +146,4 @@
 			</div>
 		</div>
 
-		<div class="container">
-			<div class="row">
+		<div class="container-fluid">

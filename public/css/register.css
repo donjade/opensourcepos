@@ -159,3 +159,12 @@ input#amount_tendered:disabled
 {
 	display: none;
 }
+
+.grid-table tr {
+	cursor: pointer;
+}
+
+.delete_item_button {
+	color: #e74c3c;
+	cursor: pointer;
+}
