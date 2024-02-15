@@ -185,7 +185,7 @@ class Sales extends Secure_Controller
 			}
 		}
 
-		$this->_reload();
+		redirect(site_url('sales'));
 	}
 
 	public function change_mode()
@@ -240,7 +240,7 @@ class Sales extends Secure_Controller
 
 		$this->sale_lib->empty_payments();
 
-		$this->_reload();
+		redirect(site_url('sales'));
 	}
 
 	public function change_register_mode($sale_type)
@@ -284,7 +284,8 @@ class Sales extends Secure_Controller
 	public function set_payment_type()
 	{
 		$this->sale_lib->set_payment_type($this->input->post('selected_payment_type'));
-		$this->_reload();
+
+		redirect(site_url('sales'));
 	}
 
 	public function set_print_after_sale()
@@ -414,7 +415,7 @@ class Sales extends Secure_Controller
 			}
 		}
 
-		$this->_reload($data);
+		redirect(site_url('sales'));
 	}
 
 	// Multiple Payments
@@ -422,7 +423,7 @@ class Sales extends Secure_Controller
 	{
 		$this->sale_lib->delete_payment($payment_id);
 
-		$this->_reload();
+		redirect(site_url('sales'));
 	}
 
 	public function add()
@@ -517,13 +518,11 @@ class Sales extends Secure_Controller
 			}
 		}
 
-		$this->_reload($data);
+		redirect(site_url('sales'));
 	}
 
 	public function edit_item($item_id)
 	{
-		$data = array();
-
 		$this->form_validation->set_rules('price', 'lang:sales_price', 'required|callback_numeric');
 		$this->form_validation->set_rules('quantity', 'lang:sales_quantity', 'required|callback_numeric');
 		$this->form_validation->set_rules('discount', 'lang:sales_discount', 'required|callback_numeric');
@@ -546,12 +545,12 @@ class Sales extends Secure_Controller
 		}
 		else
 		{
-			$data['error'] = $this->lang->line('sales_error_editing_item');
+			$this->session->set_flashdata('error', $this->lang->line('sales_error_editing_item'));
 		}
 
-		$data['warning'] = $this->sale_lib->out_of_stock($this->sale_lib->get_item_id($item_id), $item_location);
+		$this->session->set_flashdata('warning', $this->sale_lib->out_of_stock($this->sale_lib->get_item_id($item_id), $item_location));
 
-		$this->_reload($data);
+		redirect(site_url('sales'));
 	}
 
 	public function delete_item($item_number)
@@ -560,7 +559,7 @@ class Sales extends Secure_Controller
 
 		$this->sale_lib->empty_payments();		
 
-		$this->_reload();
+		redirect(site_url('sales'));
 	}
 
 	public function remove_customer()
@@ -572,7 +571,7 @@ class Sales extends Secure_Controller
 		$this->sale_lib->clear_quote_number();
 		$this->sale_lib->remove_customer();
 
-		$this->_reload();
+		redirect(site_url('sales'));
 	}
 
 	public function complete()
@@ -683,11 +682,11 @@ class Sales extends Secure_Controller
 				$invoice_number = $this->token_lib->render($invoice_format);
 			}
 
-
 			if($sale_id == -1 && $this->Sale->check_invoice_number_exists($invoice_number))
 			{
-				$data['error'] = $this->lang->line('sales_invoice_number_duplicate', $invoice_number);
-				$this->_reload($data);
+				$this->session->set_flashdata('error', $this->lang->line('sales_invoice_number_duplicate', $invoice_number));
+
+				redirect(site_url('sales'));
 			}
 			else
 			{
@@ -739,8 +738,9 @@ class Sales extends Secure_Controller
 
 			if($sale_id == -1 && $this->Sale->check_work_order_number_exists($work_order_number))
 			{
-				$data['error'] = $this->lang->line('sales_work_order_number_duplicate');
-				$this->_reload($data);
+				$this->session->set_flashdata('error', $this->lang->line('sales_work_order_number_duplicate'));
+				
+				redirect(site_url('sales'));
 			}
 			else
 			{
@@ -776,8 +776,9 @@ class Sales extends Secure_Controller
 
 			if($sale_id == -1 && $this->Sale->check_quote_number_exists($quote_number))
 			{
-				$data['error'] = $this->lang->line('sales_quote_number_duplicate');
-				$this->_reload($data);
+				$this->session->set_flashdata('error', $this->lang->line('sales_quote_number_duplicate'));
+				
+				redirect(site_url('sales'));
 			}
 			else
 			{
@@ -1454,7 +1455,8 @@ class Sales extends Secure_Controller
 		}
 
 		$this->sale_lib->clear_all();
-		$this->_reload();
+		
+		redirect(site_url('sales'));
 	}
 
 	public function discard_suspended_sale()
@@ -1462,7 +1464,8 @@ class Sales extends Secure_Controller
 		$suspended_id = $this->sale_lib->get_suspended_id();
 		$this->sale_lib->clear_all();
 		$this->Sale->delete_suspended_sale($suspended_id);
-		$this->_reload();
+		
+		redirect(site_url('sales'));
 	}
 
 	/**
@@ -1489,20 +1492,20 @@ class Sales extends Secure_Controller
 		$comment = $this->sale_lib->get_comment();
 		$sale_status = SUSPENDED;
 
-		$data = array();
 		$sales_taxes = array(array(), array());
+
 		if($this->Sale->save($sale_id, $sale_status, $cart, $customer_id, $employee_id, $comment, $invoice_number, $work_order_number, $quote_number, $sale_type, $payments, $dinner_table, $sales_taxes) == '-1')
 		{
-			$data['error'] = $this->lang->line('sales_unsuccessfully_suspended_sale');
+			$this->session->set_flashdata('error', $this->lang->line('sales_unsuccessfully_suspended_sale'));
 		}
 		else
 		{
-			$data['success'] = $this->lang->line('sales_successfully_suspended_sale');
+			$this->session->set_flashdata('success', $this->lang->line('sales_successfully_suspended_sale'));
 		}
 
 		$this->sale_lib->clear_all();
 
-		$this->_reload($data);
+		redirect(site_url('sales'));
 	}
 
 	/**
@@ -1533,7 +1536,7 @@ class Sales extends Secure_Controller
 		// Set current register mode to reflect that of unsuspended order type
 		$this->change_register_mode($this->sale_lib->get_sale_type());
 
-		$this->_reload();
+		redirect(site_url('sales'));
 	}
 	
 	public function sales_keyboard_help()

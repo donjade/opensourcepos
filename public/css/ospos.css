@@ -16,6 +16,11 @@ a.none
 	padding: 0.2em;
 }
 
+.topbar .container-fluid {
+	display: flex;
+	justify-content: space-between;
+}
+
 .navbar
 {
 	border-radius: 0;

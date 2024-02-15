@@ -164,7 +164,7 @@ input#amount_tendered:disabled
 	cursor: pointer;
 }
 
-.delete_item_button {
+.delete-btn {
 	color: #e74c3c;
 	cursor: pointer;
 }

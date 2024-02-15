@@ -133,7 +133,7 @@ if (isset($success))
 			?>
 					<?php echo form_open($controller_name."/edit_item/$line", array('class'=>'form-horizontal', 'id'=>'cart_'.$line)); ?>
 						<tr>
-							<td><span data-item-id="<?php echo $line;?>" class="delete_item_button"><span class="glyphicon glyphicon-trash"></span></span></td>
+							<td><span data-item-id="<?php echo $line;?>" class="delete-btn delete_item_button"><span class="glyphicon glyphicon-trash"></span></span></td>
 							<td><?php echo $item['item_number']; ?></td>
 							<td style="align:center;">
 								<?php echo $item['name'] . ' '. implode(' ', array($item['attribute_values'], $item['attribute_dtvalues'])); ?><br /> <?php echo '[' . to_quantity_decimals($item['in_stock']) . ' in ' . $item['stock_name'] . ']'; ?>

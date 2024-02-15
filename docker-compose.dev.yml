@@ -42,7 +42,7 @@ services:
         image: mariadb:10.5
         container_name: mysql
         restart: always
-        expose:
+        ports:
           - "0.0.0.0:3341:3306"
         networks:
           - db_net

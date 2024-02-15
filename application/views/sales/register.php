@@ -152,7 +152,7 @@
 							<?php echo form_open($controller_name."/edit_item/$line", array('class'=>'form-horizontal', 'id'=>'cart_'.$line)); ?>
 								<tr>
 									<td>
-										<span data-item-id="<?php echo $line; ?>" class="delete_item_button"><span class="glyphicon glyphicon-trash"></span></span>
+										<span data-item-id="<?php echo $line; ?>" class="delete-btn delete_item_button"><span class="glyphicon glyphicon-trash"></span></span>
 										<?php
 										echo form_hidden('location', $item['item_location']);
 										echo form_input(array('type'=>'hidden', 'name'=>'item_id', 'value'=>$item['item_id']));
@@ -560,7 +560,7 @@
 								{
 								?>
 									<tr>
-										<td><span data-payment-id="<?php echo $payment_id; ?>" class="delete_payment_button"><span class="glyphicon glyphicon-trash"></span></span></td>
+										<td><span data-payment-id="<?php echo $payment_id; ?>" class="delete-btn delete_payment_button"><span class="glyphicon glyphicon-trash"></span></span></td>
 										<td><?php echo $payment['payment_type']; ?></td>
 										<td style="text-align: right;"><?php echo to_currency($payment['payment_amount']); ?></td>
 									</tr>
