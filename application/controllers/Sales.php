@@ -2,6 +2,9 @@
 
 require_once("Secure_Controller.php");
 
+/**
+ * @property Sale_lib $sale_lib
+ */
 class Sales extends Secure_Controller
 {
 	public function __construct()

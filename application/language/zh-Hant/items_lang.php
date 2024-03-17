@@ -2,7 +2,7 @@
 
 $lang["items_add_minus"] = "增/減庫存.";
 $lang["items_allow_alt_description"] = "允許ALT描述";
-$lang["items_amount_entry"] = "金額輸入";
+$lang["items_amount_entry"] = "金额輸入";
 $lang["items_bulk_edit"] = "批次編輯";
 $lang["items_buy_price_required"] = "進貨價為必填欄位.";
 $lang["items_cannot_be_deleted"] = "無法刪除選定產品，所選產品中的一個或多個有銷售紀綠。";
@@ -46,12 +46,12 @@ $lang["items_import_items_csv"] = "Import items from CSV sheet";
 $lang["items_info_provided_by"] = "訊息提供者";
 $lang["items_inventory"] = "庫存";
 $lang["items_inventory_CSV_import_quantity"] = "從 CSV 導入的數量";
-$lang["items_inventory_comments"] = "評論";
+$lang["items_inventory_comments"] = "评论";
 $lang["items_inventory_data_tracking"] = "庫存數據跟踪";
 $lang["items_inventory_date"] = "日期";
 $lang["items_inventory_employee"] = "員工";
 $lang["items_inventory_in_out_quantity"] = "進/出數量";
-$lang["items_inventory_remarks"] = "評論";
+$lang["items_inventory_remarks"] = "评论";
 $lang["items_is_deleted"] = "已刪除";
 $lang["items_is_printed"] = "";
 $lang["items_is_serialized"] = "產品有序號";
