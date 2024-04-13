@@ -21,6 +21,7 @@
 		<link rel="stylesheet" href="bower_components/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.css" />
 		<link rel="stylesheet" href="bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" />
 		<link rel="stylesheet" href="bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css" />
+		<link rel="stylesheet" href="bower_components/toastr/toastr.min.css" />
 		<!-- endbower -->
 		<!-- start css template tags -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.autocomplete.css"/>
@@ -62,9 +63,9 @@
 		<script src="bower_components/js-cookie/src/js.cookie.js"></script>
 		<script src="bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
 		<script src="bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
+		<script src="bower_components/toastr/toastr.min.js"></script>
 		<!-- endbower -->
 		<!-- start js template tags -->
-		<script type="text/javascript" src="dist/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/clipboard.min.js"></script>
 		<script type="text/javascript" src="js/imgpreview.full.jquery.js"></script>
 		<script type="text/javascript" src="js/manage_tables.js"></script>
@@ -76,7 +77,7 @@
 		<![endif]-->
 		<!-- start mincss template tags -->
 		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
-		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=88e63d8098"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=1368f05e3c"/>
 		<!-- end mincss template tags -->
 
 		<!-- Tweaks to the UI for a particular theme should drop here  -->
@@ -85,7 +86,7 @@
 	<?php } ?>
 
 		<!-- start minjs template tags -->
-		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=64a537c419"></script>
+		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=5a3004cc41"></script>
 		<!-- end minjs template tags -->
 	<?php endif; ?>
 
@@ -102,25 +103,21 @@
 <body>
 	<div class="wrapper">
 		<div class="topbar">
-			<div class="container">
-				<div class="navbar-left">
-					<div id="liveclock"><?php echo date($this->config->item('dateformat') . ' ' . $this->config->item('timeformat')) ?></div>
-				</div>
+			<div class="container-fluid">
+				<div id="liveclock"><?php echo date($this->config->item('dateformat') . ' ' . $this->config->item('timeformat')) ?></div>
 
-				<div class="navbar-right" style="margin:0">
+				<strong><?php echo $this->config->item('company'); ?></strong>
+
+				<div>
 					<?php echo anchor('home/change_password/'.$user_info->person_id, $user_info->first_name . ' ' . $user_info->last_name, array('class' => 'modal-dlg', 'data-btn-submit' => $this->lang->line('common_submit'), 'title' => $this->lang->line('employees_change_password'))); ?>
 					<?php echo '  |  ' . ($this->input->get('debug') == 'true' ? $this->session->userdata('session_sha1') . '  |  ' : ''); ?>
 					<a href="javascript:void(0);" id="logout"><?php echo $this->lang->line('login_logout');?></a>
 				</div>
-
-				<div class="navbar-center" style="text-align:center">
-					<strong><?php echo $this->config->item('company'); ?></strong>
-				</div>
 			</div>
 		</div>
 
-		<div class="navbar navbar-default" role="navigation">
-			<div class="container">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
@@ -133,7 +130,7 @@
 				</div>
 
 				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right">
+					<ul class="nav navbar-nav">
 						<?php foreach($allowed_modules as $module): ?>
 							<li class="<?php echo $module->module_id == $this->uri->segment(1) ? 'active' : ''; ?>">
 								<a href="<?php echo site_url("$module->module_id"); ?>" title="<?php echo $this->lang->line("module_" . $module->module_id); ?>" class="menu-icon">
@@ -145,7 +142,6 @@
 					</ul>
 				</div>
 			</div>
-		</div>
+		</nav>
 
-		<div class="container">
-			<div class="row">
+		<div class="container-fluid">

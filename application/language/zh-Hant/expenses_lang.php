@@ -2,12 +2,12 @@
 
 $lang["expenses_add_item"] = "添加費用";
 $lang["expenses_amount"] = "數量";
-$lang["expenses_amount_number"] = "金額必須是數字";
-$lang["expenses_amount_required"] = "所需費用金額";
+$lang["expenses_amount_number"] = "金额必須是數字";
+$lang["expenses_amount_required"] = "所需費用金额";
 $lang["expenses_by_category"] = "類別";
 $lang["expenses_cannot_be_deleted"] = "無法刪除類別費用";
-$lang["expenses_cash"] = "現金";
-$lang["expenses_cash_filter"] = "現金";
+$lang["expenses_cash"] = "现金";
+$lang["expenses_cash_filter"] = "现金";
 $lang["expenses_categories_name"] = "類別";
 $lang["expenses_category_required"] = "類別是必填字段";
 $lang["expenses_check"] = "查看";

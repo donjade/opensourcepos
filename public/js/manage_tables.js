@@ -216,15 +216,15 @@
 			stickyHeader: true,
 			stickyHeaderOffsetLeft: $('#table').offset().right + 'px',
 			stickyHeaderOffsetRight: $('#table').offset().right + 'px',
-			url: options.resource + '/search',
+			url: options.resource + (options.action ?? '/search'),
 			sidePagination: 'server',
 			selectItemName: 'btSelectItem',
 			pageSize: options.pageSize,
 			pagination: true,
 			search: options.resource || false,
 			showColumns: true,
-			clickToSelect: true,
-			showExport: true,
+			clickToSelect: options.clickToSelect ?? true,
+			showExport: options.showExport ?? true,
 			exportDataType: 'basic',
 			exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel', 'pdf'],
 			exportOptions: {
@@ -237,6 +237,9 @@
 			toolbar: '#toolbar',
 			uniqueId: options.uniqueId || 'id',
 			trimOnSearch: false,
+			onClickRow: function (row) {
+				typeof options.onItemCheck == 'function' && options.onItemCheck(row);
+			},
 			onCheck: enable_actions,
 			onUncheck: enable_actions,
 			onCheckAll: enable_actions,

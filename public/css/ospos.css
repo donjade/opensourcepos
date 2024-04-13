@@ -16,6 +16,11 @@ a.none
 	padding: 0.2em;
 }
 
+.topbar .container-fluid {
+	display: flex;
+	justify-content: space-between;
+}
+
 .navbar
 {
 	border-radius: 0;
@@ -188,4 +193,9 @@ label.required
 {
 	padding-right:0;
 	padding-left: 0;
+}
+
+.container-fluid {
+	padding-left: 35px;
+	padding-right: 35px;
 }

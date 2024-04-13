@@ -23,6 +23,16 @@ First of all, if you're seeing the message `system folder missing` after launchi
 9. Enjoy!
 10. Oops, an issue? Please make sure you read the FAQ, wiki page, and you checked open and closed issues on GitHub. PHP `display_errors` is disabled by default. Create an` application/config/.env` file from the `.env.example` to enable it in a development environment.
 
+## Local development using Docker
+
+```
+docker run --rm -v $(pwd):/app jekkos/composer composer install
+docker run --rm -v $(pwd):/app -w /app jekkos/composer php bin/install.php translations develop
+docker run --rm -it -v $(pwd):/app -w /app opensourcepos/node-grunt-bower sh -c "npm install && bower install"
+docker-compose -f docker-compose.dev.yml build
+docker-compose -f docker-compose.dev.yml up
+```
+
 ## Local install using Docker
 
 OSPOS can be deployed using Docker on Linux, Mac, and Windows. Locally or on a host (server).

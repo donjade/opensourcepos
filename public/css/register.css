@@ -1,7 +1,27 @@
+@media (min-width: 1200px) {
+	.container
+	{
+		width: 1600px;
+	}
+}
+
+#sale_register
+{
+	display: flex;
+	justify-content: space-between;
+  	flex-wrap: wrap;
+}
+
+#sale_register > div:first-child {
+	width: 100%;
+}
+
+#sale_register > div:not(:first-child) {
+	flex: 1;
+}
+
 #register_wrapper
 {
-	float: left;
-	width: 70%;
 	font-size: 13px;
 }
 
@@ -71,8 +91,6 @@
 
 #overall_sale
 {
-	width: 29%;
-	float: left;
 	margin-left: 0.1em;
 	padding-bottom: 1em;
 	padding-top: 1em;
@@ -132,4 +150,21 @@ input#amount_tendered:disabled
 .alert
 {
 	margin-bottom: 5px;
+}
+
+.grid-table tr th:first-child,
+.grid-table tr td:first-child,
+.grid-table tr th:last-child,
+.grid-table tr td:last-child
+{
+	display: none;
+}
+
+.grid-table tr {
+	cursor: pointer;
+}
+
+.delete-btn {
+	color: #e74c3c;
+	cursor: pointer;
 }

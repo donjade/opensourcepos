@@ -22,7 +22,7 @@ services:
         depends_on:
           - mysql
         ports:
-          - "80:80"
+          - "0.0.0.0:12341:80"
         networks:
           - app_net
           - db_net
@@ -42,8 +42,8 @@ services:
         image: mariadb:10.5
         container_name: mysql
         restart: always
-        expose:
-          - "3306"
+        ports:
+          - "0.0.0.0:3341:3306"
         networks:
           - db_net
         volumes:

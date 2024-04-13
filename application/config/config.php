@@ -19,7 +19,7 @@ $config['application_version'] = '3.3.9';
 | 
 | 
 */ 
-$config['commit_sha1'] = 'dev';
+$config['commit_sha1'] = '';
  
 /* 
 |-------------------------------------------------------------------------- 
@@ -258,7 +258,7 @@ $config['directory_trigger'] = 'd';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------

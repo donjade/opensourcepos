@@ -1,0 +1,4 @@
+{
+    "CI.system": "vendor/codeigniter/framework/system",
+    "CI.ignoreSymbols": true,
+}
