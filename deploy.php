@@ -1,4 +1,5 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/codeigniter.php';
@@ -15,7 +16,7 @@ set('bin/composer', function () {
     return '/usr/bin/php7.4 /usr/local/bin/composer';
 });
 
-set('branch', 'feature/sales-items-grid');
+set('branch', 'my-master');
 
 add('shared_files', []);
 add('shared_dirs', []);

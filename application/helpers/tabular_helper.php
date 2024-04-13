@@ -74,6 +74,7 @@ function get_sales_manage_table_headers()
     }
 
     $headers[] = array('receipt' => '&nbsp', 'sortable' => FALSE, 'escape' => FALSE);
+    $headers[] = array('copy' => '&nbsp', 'sortable' => FALSE, 'escape' => FALSE);
 
     return transform_headers($headers);
 }
@@ -110,6 +111,11 @@ function get_sale_data_row($sale)
         $controller_name . "/receipt/$sale->sale_id",
         '<span class="glyphicon glyphicon-usd"></span>',
         array('title' => $CI->lang->line('sales_show_receipt'))
+    );
+    $row['copy'] = anchor(
+        $controller_name . "/copy/$sale->sale_id",
+        '<span class="glyphicon glyphicon-copy"></span>',
+        array('title' => $CI->lang->line('sales_copy_sale'))
     );
     $row['edit'] = anchor(
         $controller_name . "/edit/$sale->sale_id",
