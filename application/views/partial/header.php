@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="bower_components/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.css" />
 		<link rel="stylesheet" href="bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" />
 		<link rel="stylesheet" href="bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css" />
-		<link rel="stylesheet" href="bower_components/toastr/toastr.min.css" />
+		<link rel="stylesheet" href="bower_components/toastr/toastr.css" />
 		<!-- endbower -->
 		<!-- start css template tags -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.autocomplete.css"/>
@@ -63,7 +63,7 @@
 		<script src="bower_components/js-cookie/src/js.cookie.js"></script>
 		<script src="bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
 		<script src="bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
-		<script src="bower_components/toastr/toastr.min.js"></script>
+		<script src="bower_components/toastr/toastr.js"></script>
 		<!-- endbower -->
 		<!-- start js template tags -->
 		<script type="text/javascript" src="js/clipboard.min.js"></script>
@@ -77,7 +77,7 @@
 		<![endif]-->
 		<!-- start mincss template tags -->
 		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
-		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=1368f05e3c"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=d77206f9af"/>
 		<!-- end mincss template tags -->
 
 		<!-- Tweaks to the UI for a particular theme should drop here  -->
@@ -86,7 +86,7 @@
 	<?php } ?>
 
 		<!-- start minjs template tags -->
-		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=5a3004cc41"></script>
+		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=bf79ec7feb"></script>
 		<!-- end minjs template tags -->
 	<?php endif; ?>
 

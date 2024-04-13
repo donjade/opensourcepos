@@ -1,4 +1,5 @@
 {
     "CI.system": "vendor/codeigniter/framework/system",
     "CI.ignoreSymbols": true,
+    "editor.formatOnSave": true,
 }

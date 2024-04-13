@@ -392,6 +392,9 @@ class Sales extends Secure_Controller
         }
 
         $item_id_or_number_or_item_kit_or_receipt = $this->input->post('item');
+        $quantity = 1;
+        $price = null;
+
         $this->token_lib->parse_barcode($quantity, $price, $item_id_or_number_or_item_kit_or_receipt);
         $mode = $this->sale_lib->get_mode();
         $quantity = ($mode == 'return') ? -$quantity : $quantity;
@@ -1289,9 +1292,11 @@ class Sales extends Secure_Controller
         $work_order_number = $this->sale_lib->get_work_order_number();
         $quote_number = $this->sale_lib->get_quote_number();
         $sale_type = $this->sale_lib->get_sale_type();
+
         if ($sale_type == '') {
             $sale_type = SALE_TYPE_POS;
         }
+
         $comment = $this->sale_lib->get_comment();
         $sale_status = SUSPENDED;
 
@@ -1317,6 +1322,22 @@ class Sales extends Secure_Controller
         $customer_id = $this->sale_lib->get_customer();
         $data['suspended_sales'] = $this->xss_clean($this->Sale->get_all_suspended($customer_id));
         $this->load->view('sales/suspended', $data);
+    }
+
+    /**
+     */
+    public function copy($sale_id)
+    {
+        $this->sale_lib->clear_all();
+
+        if ($sale_id > 0) {
+            $this->sale_lib->copy_entire_sale($sale_id);
+        }
+
+        // Set current register mode to reflect that of unsuspended order type
+        $this->change_register_mode($this->sale_lib->get_sale_type());
+
+        redirect(site_url('sales'));
     }
 
     /**
